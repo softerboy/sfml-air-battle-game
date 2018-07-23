@@ -1,8 +1,11 @@
 #include <iostream>
 
+#include "game.h"
+
 int main()
 {
-    std::cout << "Hello world\n" << std::endl;
+    Game game;
+    game.run();
 
     return 0;
 }
