@@ -3,7 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "TextureHolder.h"
+#include "ResourceHolder.h"
 
 class Game
 {
@@ -21,7 +21,8 @@ private:
     sf::RenderWindow mWindow;
     sf::Sprite mPlayer;
     sf::Texture mTexture;
-    Textureholder mTextureHolder;
+    ResourceHolder<sf::Texture, Textures::ID> mResourceHolder;
+
 
 private:
     bool mIsMovingUp;

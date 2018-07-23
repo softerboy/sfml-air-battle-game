@@ -52,12 +52,11 @@ endif()
 
 set(SRCS
     src/Main.cpp
-    src/Game.cpp
-    src/TextureHolder.cpp)
+    src/Game.cpp)
 
 set(HDRS
     src/Game.h
-    src/TextureHolder.h)
+    src/ResourceHolder.h)
 
 add_executable(${PROJECT_NAME} ${SRCS} ${HDRS})
 target_link_libraries(${PROJECT_NAME} ${SFML_LIBRARIES})

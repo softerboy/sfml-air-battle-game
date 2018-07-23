@@ -11,9 +11,9 @@ Game::Game() :
 
     mIsMovingUp = mIsMovingDown = mIsMovingLeft = mIsMovingRight = false;
 
-    mTextureHolder.load(Textures::Airplane, "media/texture/Eagle.png");
+    mResourceHolder.load(Textures::Airplane, "media/texture/Eagle.png");
 
-    mPlayer.setTexture(mTextureHolder.get(Textures::Airplane));
+    mPlayer.setTexture(mResourceHolder.get(Textures::Airplane));
 }
 
 void Game::run()
