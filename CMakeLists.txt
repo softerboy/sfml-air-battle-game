@@ -51,7 +51,7 @@ else()
 endif()
 
 set(SRCS
-    main.cpp)
+    src/main.cpp)
 
 add_executable(${PROJECT_NAME} ${SRCS} ${HDRS})
 target_link_libraries(${PROJECT_NAME} ${SFML_LIBRARIES})
