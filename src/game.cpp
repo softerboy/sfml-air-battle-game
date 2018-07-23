@@ -15,10 +15,12 @@ Game::Game() :
 
 void Game::run()
 {
+    sf::Clock clock;
     while (mWindow.isOpen())
     {
+        sf::Time deltaTime = clock.restart();
         processEvents();
-        update();
+        update(deltaTime);
         render();
     }
 }
@@ -45,7 +47,7 @@ void Game::processEvents()
     }
 }
 
-void Game::update()
+void Game::update(sf::Time deltaTime)
 {
     sf::Vector2f movement(0.f, 0.f);
     if (mIsMovingUp)
@@ -57,7 +59,7 @@ void Game::update()
     if (mIsMovingRight)
         movement.x += 1.0f;
 
-    mPlayer.move(movement);
+    mPlayer.move(movement * deltaTime.asSeconds());
 }
 
 void Game::render()
