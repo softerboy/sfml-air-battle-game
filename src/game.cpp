@@ -2,6 +2,8 @@
 
 #include <SFML/Graphics.hpp>
 
+const sf::Time TimePerFrame = sf::seconds(1.f / 60.f);
+
 Game::Game() :
     mWindow(sf::VideoMode(640, 480), "SFML Application"),
     mPlayer()
@@ -16,11 +18,15 @@ Game::Game() :
 void Game::run()
 {
     sf::Clock clock;
+    sf::Time timeSinceLastUpdate = sf::Time::Zero;
     while (mWindow.isOpen())
     {
-        sf::Time deltaTime = clock.restart();
-        processEvents();
-        update(deltaTime);
+        timeSinceLastUpdate += clock.restart();
+        while (timeSinceLastUpdate > TimePerFrame) {
+            timeSinceLastUpdate -= TimePerFrame;
+            processEvents();
+            update(TimePerFrame);
+        }
         render();
     }
 }
@@ -49,15 +55,16 @@ void Game::processEvents()
 
 void Game::update(sf::Time deltaTime)
 {
+    const float PlayerSpeed = 100.f;
     sf::Vector2f movement(0.f, 0.f);
     if (mIsMovingUp)
-        movement.y -= 1.0f;
+        movement.y -= PlayerSpeed;
     if (mIsMovingDown)
-        movement.y += 1.0f;
+        movement.y += PlayerSpeed;
     if (mIsMovingLeft)
-        movement.x -= 1.0f;
+        movement.x -= PlayerSpeed;
     if (mIsMovingRight)
-        movement.x += 1.0f;
+        movement.x += PlayerSpeed;
 
     mPlayer.move(movement * deltaTime.asSeconds());
 }
