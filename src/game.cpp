@@ -5,14 +5,17 @@
 const sf::Time TimePerFrame = sf::seconds(1.f / 60.f);
 
 Game::Game() :
-    mWindow(sf::VideoMode(640, 480), "SFML Application"),
-    mPlayer()
+    mWindow(sf::VideoMode(640, 480), "SFML Application")
 {
-    mPlayer.setRadius(40.f);
     mPlayer.setPosition(100.f, 100.f);
-    mPlayer.setFillColor(sf::Color::Cyan);
 
     mIsMovingUp = mIsMovingDown = mIsMovingLeft = mIsMovingRight = false;
+
+    if (!mTexture.loadFromFile("media/texture/Eagle.png")) {
+        // handle loading error
+    }
+
+    mPlayer.setTexture(mTexture);
 }
 
 void Game::run()
