@@ -5,9 +5,7 @@
 #include <map>
 #include <cassert>
 
-namespace Textures {
-    enum ID { Landscape, Airplane, Missile };
-}
+#include "ResourceIdentifiers.h"
 
 template <typename Resource, typename Identifier>
 class ResourceHolder
