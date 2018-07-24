@@ -1,13 +1,11 @@
 #include "SceneNode.h"
+#include "Category.h"
 
 #include <algorithm>
 #include <utility>
 #include <cassert>
 
-SceneNode::SceneNode()
-{
-
-}
+SceneNode::SceneNode() : mChildren(), mParent(nullptr) {}
 
 void SceneNode::attachChild(SceneNode::Ptr child)
 {
@@ -31,6 +29,20 @@ void SceneNode::update(sf::Time dt)
 {
     updateCurrent(dt);
     updateChildren(dt);
+}
+
+unsigned int SceneNode::getCategory() const
+{
+    return Category::Scene;
+}
+
+void SceneNode::onCommand(const Command &command, sf::Time dt)
+{
+    if (command.category & getCategory())
+        command.action(*this, dt);
+
+    for (auto& child : mChildren)
+        child->onCommand(command, dt);
 }
 
 void SceneNode::updateCurrent(sf::Time dt)

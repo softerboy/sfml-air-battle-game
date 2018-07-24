@@ -39,24 +39,18 @@ void Game::run()
 
 void Game::processEvents()
 {
+    CommandQueue& commands = mWorld.getCommandQueue();
+
     sf::Event event;
     while(mWindow.pollEvent(event))
     {
-        switch (event.type)
-        {
-        case sf::Event::KeyPressed:
-            handlePlayerInput(event.key.code, true);
-            break;
+        mPlayer.handleEvent(event, commands);
 
-        case sf::Event::KeyReleased:
-            handlePlayerInput(event.key.code, false);
-            break;
-
-        case sf::Event::Closed:
+        if (event.type == sf::Event::Closed)
             mWindow.close();
-            break;
-        }
     }
+
+    mPlayer.handleRealtimeInput(commands);
 }
 
 void Game::update(sf::Time deltaTime)

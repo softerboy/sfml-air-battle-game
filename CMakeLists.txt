@@ -57,6 +57,9 @@ set(SRCS
     src/SceneNode.cpp
     src/Entity.cpp
     src/SpriteNode.cpp
+    src/Command.cpp
+    src/CommandQueue.cpp
+    src/Player.cpp
     src/World.cpp)
 
 set(HDRS
@@ -67,7 +70,10 @@ set(HDRS
     src/Entity.h
     src/ResourceIdentifiers.h
     src/SpriteNode.h
+    src/Command.h
     src/World.h
+    src/CommandQueue.h
+    src/Player.h
     src/StringHelpers.h)
 
 add_executable(${PROJECT_NAME} ${SRCS} ${HDRS})

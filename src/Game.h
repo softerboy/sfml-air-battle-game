@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "Player.h"
 #include "World.h"
 
 class Game
@@ -21,6 +22,7 @@ private:
 private:
     sf::RenderWindow mWindow;
     World mWorld;
+    Player mPlayer;
 
     sf::Font mFont;
     sf::Text mStatisticsText;

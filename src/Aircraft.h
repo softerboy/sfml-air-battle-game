@@ -15,6 +15,11 @@ public:
 public:
     explicit Aircraft(Type type, const TextureHolder& textures);
 
+public:
+    virtual unsigned int getCategory() const;
+    void accelerate(sf::Vector2f v);
+    void accelerate(float vx, float vy);
+
 private:
     virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
 
