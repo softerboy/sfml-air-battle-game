@@ -52,7 +52,7 @@ endif()
 
 set(SRCS
     src/Main.cpp
-    src/Game.cpp
+    src/Application.cpp
     src/Aircraft.cpp
     src/SceneNode.cpp
     src/Entity.cpp
@@ -60,10 +60,17 @@ set(SRCS
     src/Command.cpp
     src/CommandQueue.cpp
     src/Player.cpp
+    src/StateStack.cpp
+    src/State.cpp
+    src/TitleState.cpp
+    src/MenuState.cpp
+    src/GameState.cpp
+    src/PauseState.cpp
+    src/Utility.cpp
     src/World.cpp)
 
 set(HDRS
-    src/Game.h
+    src/Application.h
     src/ResourceHolder.h
     src/Aircraft.h
     src/SceneNode.h
@@ -74,7 +81,13 @@ set(HDRS
     src/World.h
     src/CommandQueue.h
     src/Player.h
-    src/StringHelpers.h)
+    src/StateStack.h
+    src/State.h
+    src/TitleState.h
+    src/MenuState.h
+    src/GameState.h
+    src/PauseState.h
+    src/Utility.h)
 
 add_executable(${PROJECT_NAME} ${SRCS} ${HDRS})
 target_link_libraries(${PROJECT_NAME} ${SFML_LIBRARIES})

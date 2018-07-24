@@ -1,28 +1,34 @@
-#ifndef GAME_H
-#define GAME_H
+#ifndef __APPLICATION_H__
+#define __APPLICATION_H__
 
 #include <SFML/Graphics.hpp>
 
 #include "Player.h"
 #include "World.h"
+#include "StateStack.h"
+#include "ResourceIdentifiers.h"
 
-class Game
+class Application
 {
 public:
-    Game();
+    Application();
     void run();
 
 private:
-    void processEvents();
+    void processInput();
     void update(sf::Time deltaTime);
     void render();
-    void handlePlayerInput(sf::Keyboard::Key key, bool isPressed);
+
     void updateStatistics(sf::Time elapsedTime);
+    void registerStates();
 
 private:
-    sf::RenderWindow mWindow;
-    World mWorld;
+    sf::RenderWindow mWindow;    
+    TextureHolder mTextures;
+    FontHolder mFonts;
     Player mPlayer;
+
+    StateStack mStateStack;
 
     sf::Font mFont;
     sf::Text mStatisticsText;
@@ -30,4 +36,4 @@ private:
     std::size_t mStatisticsNumFrames;
 };
 
-#endif // GAME_H
+#endif // __APPLICATION_H__
