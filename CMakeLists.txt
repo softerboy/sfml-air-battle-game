@@ -73,11 +73,13 @@ set(SRCS
 
 set(HDRS
     src/Application.h
-    src/ResourceHolder.h
     src/Aircraft.h
+    src/ResourceHolder.h
+    src/Category.h
     src/SceneNode.h
     src/Entity.h
     src/ResourceIdentifiers.h
+    src/StateIdentifiers.h
     src/SpriteNode.h
     src/Command.h
     src/World.h
