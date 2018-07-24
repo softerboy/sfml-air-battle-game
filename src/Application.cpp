@@ -4,6 +4,7 @@
 #include "GameState.h"
 #include "MenuState.h"
 #include "PauseState.h"
+#include "LoadingState.h"
 
 #include <SFML/Graphics.hpp>
 
@@ -29,7 +30,7 @@ Application::Application() :
     mStatisticsText.setCharacterSize(10u);
 
     registerStates();
-    mStateStack.pushState(States::Title);
+    mStateStack.pushState(States::Loading);
 }
 
 void Application::run()
@@ -99,6 +100,7 @@ void Application::updateStatistics(sf::Time elapsedTime)
 
 void Application::registerStates()
 {
+    mStateStack.registerState<LoadingState>(States::Loading);
     mStateStack.registerState<TitleState>(States::Title);
     mStateStack.registerState<MenuState>(States::Menu);
     mStateStack.registerState<GameState>(States::Game);

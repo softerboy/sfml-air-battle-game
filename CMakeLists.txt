@@ -67,6 +67,8 @@ set(SRCS
     src/GameState.cpp
     src/PauseState.cpp
     src/Utility.cpp
+    src/ParallelTask.cpp
+    src/LoadingState.cpp
     src/World.cpp)
 
 set(HDRS
@@ -87,6 +89,8 @@ set(HDRS
     src/MenuState.h
     src/GameState.h
     src/PauseState.h
+    src/ParallelTask.h
+    src/LoadingState.h
     src/Utility.h)
 
 add_executable(${PROJECT_NAME} ${SRCS} ${HDRS})
