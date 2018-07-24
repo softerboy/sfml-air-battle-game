@@ -8,7 +8,8 @@ enum ID {
     Menu,
     Game,
     Loading,
-    Pause
+    Pause,
+    Settings
 };
 }
 

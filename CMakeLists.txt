@@ -69,7 +69,12 @@ set(SRCS
     src/Utility.cpp
     src/ParallelTask.cpp
     src/LoadingState.cpp
-    src/World.cpp)
+    src/SettingsState.cpp
+    src/World.cpp
+    src/Component.cpp
+    src/Container.cpp
+    src/Label.cpp
+    src/Button.cpp)
 
 set(HDRS
     src/Application.h
@@ -93,7 +98,12 @@ set(HDRS
     src/PauseState.h
     src/ParallelTask.h
     src/LoadingState.h
-    src/Utility.h)
+    src/SettingsState.h
+    src/Utility.h
+    src/Component.h
+    src/Container.h
+    src/Label.h
+    src/Button.h)
 
 add_executable(${PROJECT_NAME} ${SRCS} ${HDRS})
 target_link_libraries(${PROJECT_NAME} ${SFML_LIBRARIES})

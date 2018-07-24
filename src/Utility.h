@@ -3,6 +3,8 @@
 
 #include <sstream>
 
+#include <SFML/Window/Keyboard.hpp>
+
 namespace sf
 {
 class Sprite;
@@ -13,6 +15,9 @@ class Text;
 // our own to support all platforms.
 template <typename T>
 std::string toString(const T& value);
+
+// Convert enumerators to strings
+std::string toString(sf::Keyboard::Key key);
 
 void centerOrigin(sf::Sprite& sprite);
 void centerOrigin(sf::Text& text);

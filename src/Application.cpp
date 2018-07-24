@@ -5,6 +5,7 @@
 #include "MenuState.h"
 #include "PauseState.h"
 #include "LoadingState.h"
+#include "SettingsState.h"
 
 #include <SFML/Graphics.hpp>
 
@@ -24,6 +25,9 @@ Application::Application() :
 
     mFonts.load(Fonts::Main, "media/font/Sansation.ttf");
     mTextures.load(Textures::TitleScreen, "media/texture/TitleScreen.png");
+    mTextures.load(Textures::ButtonNormal, "media/texture/ButtonNormal.png");
+    mTextures.load(Textures::ButtonPressed, "media/texture/ButtonPressed.png");
+    mTextures.load(Textures::ButtonSelected, "media/texture/ButtonSelected.png");
 
     mStatisticsText.setFont(mFont);
     mStatisticsText.setPosition(5.f, 5.f);
@@ -105,6 +109,7 @@ void Application::registerStates()
     mStateStack.registerState<MenuState>(States::Menu);
     mStateStack.registerState<GameState>(States::Game);
     mStateStack.registerState<PauseState>(States::Pause);
+    mStateStack.registerState<SettingsState>(States::Settings);
 }
 
 

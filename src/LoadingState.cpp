@@ -43,7 +43,7 @@ bool LoadingState::update(sf::Time dt)
     if (mLoadingTask.isFinished())
     {
         requestStackPop();
-        requestStackPush(States::Title);
+        requestStackPush(States::Menu);
     }
     else {
         setCompletion(mLoadingTask.getCompletion());

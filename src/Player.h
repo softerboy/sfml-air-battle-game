@@ -15,7 +15,7 @@ public:
     void handleRealtimeInput(CommandQueue& commands);
 
 public:
-    enum Action { MoveLeft, MoveRight, MoveUp, MoveDown };
+    enum Action { MoveLeft, MoveRight, MoveUp, MoveDown, ActionCount };
 
     void assignKey(Action action, sf::Keyboard::Key key);
     sf::Keyboard::Key getAssignedKey(Action action) const;
