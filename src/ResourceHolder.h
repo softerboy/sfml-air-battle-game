@@ -4,6 +4,7 @@
 #include <string>
 #include <map>
 #include <cassert>
+#include <memory>
 
 #include "ResourceIdentifiers.h"
 
