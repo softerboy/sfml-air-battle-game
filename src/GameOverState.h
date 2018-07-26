@@ -1,5 +1,5 @@
-#ifndef __MENU_STATE_H__
-#define __MENU_STATE_H__
+#ifndef __GAME_OVER_STATE_H__
+#define __GAME_OVER_STATE_H__
 
 #include "State.h"
 #include "Container.h"
@@ -8,18 +8,19 @@
 #include <SFML/Graphics/Text.hpp>
 
 
-class MenuState : public State
+class GameOverState : public State
 {
 public:
-    MenuState(StateStack& stack, Context context);
+    GameOverState(StateStack& stack, Context context);
 
     virtual void draw();
     virtual bool update(sf::Time dt);
     virtual bool handleEvent(const sf::Event& event);
 
+
 private:
-    sf::Sprite mBackgroundSprite;
-    GUI::Container mGUIContainer;
+    sf::Text mGameOverText;
+    sf::Time mElapsedTime;
 };
 
-#endif // __MENU_STATE_H__
+#endif // __GAME_OVER_STATE_H__

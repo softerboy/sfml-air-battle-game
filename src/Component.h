@@ -1,21 +1,30 @@
-#ifndef COMPONENT_H
-#define COMPONENT_H
+#ifndef __COMPONENT_H__
+#define __COMPONENT_H__
 
-#include <SFML/Graphics.hpp>
+#include <SFML/System/NonCopyable.hpp>
+#include <SFML/Graphics/Drawable.hpp>
+#include <SFML/Graphics/Transformable.hpp>
 
 #include <memory>
 
-namespace GUI {
 
-class Component : public sf::Drawable,
-        public sf::Transformable, private sf::NonCopyable
+namespace sf
+{
+class Event;
+}
+
+namespace GUI
+{
+
+class Component : public sf::Drawable, public sf::Transformable, private sf::NonCopyable
 {
 public:
     typedef std::shared_ptr<Component> Ptr;
 
+
 public:
     Component();
-    virtual ~Component();
+    virtual	~Component();
 
     virtual bool isSelectable() const = 0;
     bool isSelected() const;
@@ -28,6 +37,7 @@ public:
 
     virtual void handleEvent(const sf::Event& event) = 0;
 
+
 private:
     bool mIsSelected;
     bool mIsActive;
@@ -35,4 +45,4 @@ private:
 
 }
 
-#endif // COMPONENT_H
+#endif // __COMPONENT_H__

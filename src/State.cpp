@@ -1,17 +1,23 @@
 #include "State.h"
 #include "StateStack.h"
 
-State::Context::Context(sf::RenderWindow &window, TextureHolder &textures, FontHolder &fonts, Player &player)
-    : window(&window), textures(&textures), fonts(&fonts), player(&player) {}
 
-State::State(StateStack &stack, State::Context context)
-    : mStack(&stack), mContext(context) {}
-
-State::~State() {}
-
-State::Context State::getContext() const
+State::Context::Context(sf::RenderWindow& window, TextureHolder& textures, FontHolder& fonts, Player& player)
+    : window(&window)
+    , textures(&textures)
+    , fonts(&fonts)
+    , player(&player)
 {
-    return mContext;
+}
+
+State::State(StateStack& stack, Context context)
+    : mStack(&stack)
+    , mContext(context)
+{
+}
+
+State::~State()
+{
 }
 
 void State::requestStackPush(States::ID stateID)
@@ -24,9 +30,12 @@ void State::requestStackPop()
     mStack->popState();
 }
 
-void State::requestStackClear()
+void State::requestStateClear()
 {
     mStack->clearStates();
 }
 
-
+State::Context State::getContext() const
+{
+    return mContext;
+}

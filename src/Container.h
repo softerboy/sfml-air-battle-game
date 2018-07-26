@@ -1,16 +1,20 @@
-#ifndef CONTAINER_H
-#define CONTAINER_H
+#ifndef __CONTAINER_H__
+#define __CONTAINER_H__
 
 #include "Component.h"
 
+#include <vector>
 #include <memory>
 
-namespace GUI {
+
+namespace GUI
+{
 
 class Container : public Component
 {
 public:
     typedef std::shared_ptr<Container> Ptr;
+
 
 public:
     Container();
@@ -20,6 +24,7 @@ public:
     virtual bool isSelectable() const;
     virtual void handleEvent(const sf::Event& event);
 
+
 private:
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
@@ -28,10 +33,12 @@ private:
     void selectNext();
     void selectPrevious();
 
+
 private:
     std::vector<Component::Ptr> mChildren;
-    int mSelectedChild;
+    int	mSelectedChild;
 };
 
 }
-#endif // CONTAINER_H
+
+#endif // __CONTAINER_H__

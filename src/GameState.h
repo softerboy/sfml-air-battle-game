@@ -1,11 +1,13 @@
-#ifndef GAMESTATE_H
-#define GAMESTATE_H
+#ifndef __GAME_STATE_H__
+#define __GAME_STATE_H__
 
 #include "State.h"
 #include "World.h"
+#include "Player.h"
 
-class StateStack;
-class Player;
+#include <SFML/Graphics/Sprite.hpp>
+#include <SFML/Graphics/Text.hpp>
+
 
 class GameState : public State
 {
@@ -14,11 +16,12 @@ public:
 
     virtual void draw();
     virtual bool update(sf::Time dt);
-    virtual bool handleEvent(const sf::Event &event);
+    virtual bool handleEvent(const sf::Event& event);
+
 
 private:
     World mWorld;
-    Player& mPlayer;
+    Player&	mPlayer;
 };
 
-#endif // GAMESTATE_H
+#endif // __GAME_STATE_H__

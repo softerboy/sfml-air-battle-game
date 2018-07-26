@@ -67,14 +67,17 @@ set(SRCS
     src/GameState.cpp
     src/PauseState.cpp
     src/Utility.cpp
-    src/ParallelTask.cpp
-    src/LoadingState.cpp
     src/SettingsState.cpp
+    src/GameOverState.cpp
     src/World.cpp
     src/Component.cpp
     src/Container.cpp
     src/Label.cpp
-    src/Button.cpp)
+    src/Button.cpp
+    src/DataTables.cpp
+    src/TextNode.cpp
+    src/Projectile.cpp
+    src/Pickup.cpp)
 
 set(HDRS
     src/Application.h
@@ -95,15 +98,18 @@ set(HDRS
     src/TitleState.h
     src/MenuState.h
     src/GameState.h
-    src/PauseState.h
-    src/ParallelTask.h
-    src/LoadingState.h
+    src/PauseState.h        
     src/SettingsState.h
+    src/GameOverState.h
     src/Utility.h
     src/Component.h
     src/Container.h
     src/Label.h
-    src/Button.h)
+    src/Button.h
+    src/DataTables.h
+    src/TextNode.h
+    src/Projectile.h
+    src/Pickup.h)
 
 add_executable(${PROJECT_NAME} ${SRCS} ${HDRS})
 target_link_libraries(${PROJECT_NAME} ${SFML_LIBRARIES})

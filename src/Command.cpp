@@ -1,4 +1,8 @@
 #include "Command.h"
-#include "Category.h"
 
-Command::Command() : action(), category(Category::None) {}
+
+Command::Command()
+    : action()
+    , category(Category::None)
+{
+}

@@ -1,16 +1,21 @@
-#ifndef LABEL_H
-#define LABEL_H
+#ifndef __LABEL_H__
+#define __LABEL_H__
 
 #include "Component.h"
 #include "ResourceIdentifiers.h"
 #include "ResourceHolder.h"
 
-namespace GUI {
+#include <SFML/Graphics/Text.hpp>
+
+
+namespace GUI
+{
 
 class Label : public Component
 {
 public:
     typedef std::shared_ptr<Label> Ptr;
+
 
 public:
     Label(const std::string& text, const FontHolder& fonts);
@@ -20,8 +25,10 @@ public:
 
     virtual void handleEvent(const sf::Event& event);
 
+
 private:
-    void draw(sf::RenderTarget &target, sf::RenderStates states) const;
+    void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+
 
 private:
     sf::Text mText;
@@ -29,4 +36,4 @@ private:
 
 }
 
-#endif // LABEL_H
+#endif // __LABEL_H__

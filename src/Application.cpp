@@ -1,51 +1,55 @@
 #include "Application.h"
 #include "Utility.h"
+#include "State.h"
+#include "StateIdentifiers.h"
 #include "TitleState.h"
 #include "GameState.h"
 #include "MenuState.h"
 #include "PauseState.h"
-#include "LoadingState.h"
 #include "SettingsState.h"
+#include "GameOverState.h"
 
-#include <SFML/Graphics.hpp>
 
-const sf::Time TimePerFrame = sf::seconds(1.f / 60.f);
+const sf::Time Application::TimePerFrame = sf::seconds(1.f/60.f);
 
-Application::Application() :
-    mWindow(sf::VideoMode(640, 480), "World", sf::Style::Close),
-    mTextures(),
-    mFont(),
-    mPlayer(),
-    mStateStack(State::Context(mWindow, mTextures, mFonts, mPlayer)),
-    mStatisticsText(),
-    mStatisticsUpdateTime(),
-    mStatisticsNumFrames(0)
+Application::Application()
+    : mWindow(sf::VideoMode(1024, 768), "Gameplay", sf::Style::Close)
+    , mTextures()
+    , mFonts()
+    , mPlayer()
+    , mStateStack(State::Context(mWindow, mTextures, mFonts, mPlayer))
+    , mStatisticsText()
+    , mStatisticsUpdateTime()
+    , mStatisticsNumFrames(0)
 {
     mWindow.setKeyRepeatEnabled(false);
 
-    mFonts.load(Fonts::Main, "media/font/Sansation.ttf");
-    mTextures.load(Textures::TitleScreen, "media/texture/TitleScreen.png");
-    mTextures.load(Textures::ButtonNormal, "media/texture/ButtonNormal.png");
-    mTextures.load(Textures::ButtonPressed, "media/texture/ButtonPressed.png");
-    mTextures.load(Textures::ButtonSelected, "media/texture/ButtonSelected.png");
+    mFonts.load(Fonts::Main, 	"media/font/Sansation.ttf");
 
-    mStatisticsText.setFont(mFont);
+    mTextures.load(Textures::TitleScreen,		"media/texture/TitleScreen.png");
+    mTextures.load(Textures::ButtonNormal,		"media/texture/ButtonNormal.png");
+    mTextures.load(Textures::ButtonSelected,	"media/texture/ButtonSelected.png");
+    mTextures.load(Textures::ButtonPressed,		"media/texture/ButtonPressed.png");
+
+    mStatisticsText.setFont(mFonts.get(Fonts::Main));
     mStatisticsText.setPosition(5.f, 5.f);
     mStatisticsText.setCharacterSize(10u);
 
     registerStates();
-    mStateStack.pushState(States::Loading);
+    mStateStack.pushState(States::Title);
 }
 
 void Application::run()
 {
     sf::Clock clock;
     sf::Time timeSinceLastUpdate = sf::Time::Zero;
+
     while (mWindow.isOpen())
     {
-        sf::Time elapsedTime = clock.restart();
-        timeSinceLastUpdate += elapsedTime;
-        while (timeSinceLastUpdate > TimePerFrame) {
+        sf::Time dt = clock.restart();
+        timeSinceLastUpdate += dt;
+        while (timeSinceLastUpdate > TimePerFrame)
+        {
             timeSinceLastUpdate -= TimePerFrame;
 
             processInput();
@@ -55,7 +59,8 @@ void Application::run()
             if (mStateStack.isEmpty())
                 mWindow.close();
         }
-        updateStatistics(elapsedTime);
+
+        updateStatistics(dt);
         render();
     }
 }
@@ -63,23 +68,24 @@ void Application::run()
 void Application::processInput()
 {
     sf::Event event;
-    while(mWindow.pollEvent(event))
+    while (mWindow.pollEvent(event))
     {
-        mStateStack.handlEvent(event);
+        mStateStack.handleEvent(event);
 
         if (event.type == sf::Event::Closed)
             mWindow.close();
     }
 }
 
-void Application::update(sf::Time deltaTime)
+void Application::update(sf::Time dt)
 {
-    mStateStack.update(deltaTime);
+    mStateStack.update(dt);
 }
 
 void Application::render()
 {
     mWindow.clear();
+
     mStateStack.draw();
 
     mWindow.setView(mWindow.getDefaultView());
@@ -88,11 +94,10 @@ void Application::render()
     mWindow.display();
 }
 
-void Application::updateStatistics(sf::Time elapsedTime)
+void Application::updateStatistics(sf::Time dt)
 {
-    mStatisticsUpdateTime += elapsedTime;
+    mStatisticsUpdateTime += dt;
     mStatisticsNumFrames += 1;
-
     if (mStatisticsUpdateTime >= sf::seconds(1.0f))
     {
         mStatisticsText.setString("FPS: " + toString(mStatisticsNumFrames));
@@ -104,14 +109,10 @@ void Application::updateStatistics(sf::Time elapsedTime)
 
 void Application::registerStates()
 {
-    mStateStack.registerState<LoadingState>(States::Loading);
     mStateStack.registerState<TitleState>(States::Title);
     mStateStack.registerState<MenuState>(States::Menu);
     mStateStack.registerState<GameState>(States::Game);
     mStateStack.registerState<PauseState>(States::Pause);
     mStateStack.registerState<SettingsState>(States::Settings);
+    mStateStack.registerState<GameOverState>(States::GameOver);
 }
-
-
-
-

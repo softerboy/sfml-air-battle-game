@@ -1,5 +1,5 @@
-#ifndef BOOK_SETTINGSSTATE_HPP
-#define BOOK_SETTINGSSTATE_HPP
+#ifndef __SETTINGS_STATE_H__
+#define __SETTINGS_STATE_H__
 
 #include "State.h"
 #include "Player.h"
@@ -27,6 +27,7 @@ private:
     void updateLabels();
     void addButtonLabel(Player::Action action, float y, const std::string& text, Context context);
 
+
 private:
     sf::Sprite mBackgroundSprite;
     GUI::Container mGUIContainer;
@@ -34,4 +35,4 @@ private:
     std::array<GUI::Label::Ptr, Player::ActionCount> mBindingLabels;
 };
 
-#endif // BOOK_SETTINGSSTATE_HPP
+#endif // __SETTINGS_STATE_H__

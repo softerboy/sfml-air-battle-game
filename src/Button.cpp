@@ -1,20 +1,22 @@
 #include "Button.h"
-//#include "ResourceHolder.h"
-//#include "ResourceIdentifiers.h"
 #include "Utility.h"
 
-#include <utility>
+#include <SFML/Window/Event.hpp>
+#include <SFML/Graphics/RenderStates.hpp>
+#include <SFML/Graphics/RenderTarget.hpp>
 
-namespace GUI {
 
-Button::Button(const FontHolder &fonts, const TextureHolder &textures) :
-    mCallback(),
-    mNormalTexture(textures.get(Textures::ButtonNormal)),
-    mPressedTexture(textures.get(Textures::ButtonPressed)),
-    mSelectedTexture(textures.get(Textures::ButtonSelected)),
-    mSprite(),
-    mText("", fonts.get(Fonts::Main), 16),
-    mIsToggle(false)
+namespace GUI
+{
+
+Button::Button(const FontHolder& fonts, const TextureHolder& textures)
+    : mCallback()
+    , mNormalTexture(textures.get(Textures::ButtonNormal))
+    , mSelectedTexture(textures.get(Textures::ButtonSelected))
+    , mPressedTexture(textures.get(Textures::ButtonPressed))
+    , mSprite()
+    , mText("", fonts.get(Fonts::Main), 16)
+    , mIsToggle(false)
 {
     mSprite.setTexture(mNormalTexture);
 
@@ -22,12 +24,12 @@ Button::Button(const FontHolder &fonts, const TextureHolder &textures) :
     mText.setPosition(bounds.width / 2.f, bounds.height / 2.f);
 }
 
-void Button::setCallback(Button::Callback callback)
+void Button::setCallback(Callback callback)
 {
     mCallback = std::move(callback);
 }
 
-void Button::setText(const std::string &text)
+void Button::setText(const std::string& text)
 {
     mText.setString(text);
     centerOrigin(mText);
@@ -87,12 +89,11 @@ void Button::deactivate()
     }
 }
 
-void Button::handleEvent(const sf::Event &event)
+void Button::handleEvent(const sf::Event&)
 {
-
 }
 
-void Button::draw(sf::RenderTarget &target, sf::RenderStates states) const
+void Button::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
     states.transform *= getTransform();
     target.draw(mSprite, states);

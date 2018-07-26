@@ -1,32 +1,58 @@
-#ifndef PLAYER_H
-#define PLAYER_H
+#ifndef __PLAYER_H__
+#define __PLAYER_H__
 
-#include <SFML/Graphics.hpp>
+#include "Command.h"
 
-#include "CommandQueue.h"
+#include <SFML/Window/Event.hpp>
+
+#include <map>
+
+
+class CommandQueue;
 
 class Player
 {
 public:
+    enum Action
+    {
+        MoveLeft,
+        MoveRight,
+        MoveUp,
+        MoveDown,
+        Fire,
+        LaunchMissile,
+        ActionCount
+    };
+
+    enum MissionStatus
+    {
+        MissionRunning,
+        MissionSuccess,
+        MissionFailure
+    };
+
+
+public:
     Player();
 
-public:
     void handleEvent(const sf::Event& event, CommandQueue& commands);
     void handleRealtimeInput(CommandQueue& commands);
-
-public:
-    enum Action { MoveLeft, MoveRight, MoveUp, MoveDown, ActionCount };
 
     void assignKey(Action action, sf::Keyboard::Key key);
     sf::Keyboard::Key getAssignedKey(Action action) const;
 
-private:
-    static bool isRealtimeAction(Action action);
-    void initializeActions();
+    void setMissionStatus(MissionStatus status);
+    MissionStatus getMissionStatus() const;
 
 private:
-    std::map<sf::Keyboard::Key, Action> mKeyBinding;
+    void initializeActions();
+    static bool	isRealtimeAction(Action action);
+
+
+private:
+    std::map<sf::Keyboard::Key, Action>	mKeyBinding;
     std::map<Action, Command> mActionBinding;
+    MissionStatus mCurrentMissionStatus;
 };
 
-#endif // PLAYER_H
+#endif // __PLAYER_H__

@@ -1,22 +1,28 @@
-#ifndef BUTTON_H
-#define BUTTON_H
+#ifndef __BUTTON_H__
+#define __BUTTON_H__
 
 #include "Component.h"
 #include "ResourceIdentifiers.h"
 #include "ResourceHolder.h"
 
+#include <SFML/Graphics/Sprite.hpp>
+#include <SFML/Graphics/Text.hpp>
+
+#include <vector>
+#include <string>
+#include <memory>
 #include <functional>
 
-//class FontHolder;
-//class TextureHolder;
 
-namespace GUI {
+namespace GUI
+{
 
 class Button : public Component
 {
 public:
-    typedef std::shared_ptr<Button> Ptr;
+    typedef std::shared_ptr<Button>	Ptr;
     typedef std::function<void()> Callback;
+
 
 public:
     Button(const FontHolder& fonts, const TextureHolder& textures);
@@ -34,8 +40,10 @@ public:
 
     virtual void handleEvent(const sf::Event& event);
 
+
 private:
-    virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
+    virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+
 
 private:
     Callback mCallback;
@@ -49,4 +57,4 @@ private:
 
 }
 
-#endif // BUTTON_H
+#endif // __BUTTON_H__

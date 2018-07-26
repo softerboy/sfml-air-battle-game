@@ -1,12 +1,17 @@
 #include "Component.h"
 
-namespace GUI {
+namespace GUI
+{
 
-Component::Component() :
-    mIsSelected(false),
-    mIsActive(false) { }
+Component::Component()
+    : mIsSelected(false)
+    , mIsActive(false)
+{
+}
 
-Component::~Component() {}
+Component::~Component()
+{
+}
 
 bool Component::isSelected() const
 {

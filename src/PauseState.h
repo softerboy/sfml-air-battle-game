@@ -1,7 +1,12 @@
-#ifndef PAUSESTATE_H
-#define PAUSESTATE_H
+#ifndef BOOK_PAUSESTATE_HPP
+#define BOOK_PAUSESTATE_HPP
 
 #include "State.h"
+#include "Container.h"
+
+#include <SFML/Graphics/Sprite.hpp>
+#include <SFML/Graphics/Text.hpp>
+
 
 class PauseState : public State
 {
@@ -16,7 +21,7 @@ public:
 private:
     sf::Sprite mBackgroundSprite;
     sf::Text mPausedText;
-    sf::Text mInstructionText;
+    GUI::Container mGUIContainer;
 };
 
-#endif // PAUSESTATE_H
+#endif // BOOK_PAUSESTATE_HPP

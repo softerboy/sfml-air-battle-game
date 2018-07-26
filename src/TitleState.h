@@ -1,9 +1,11 @@
-#ifndef TITLESTATE_H
-#define TITLESTATE_H
+#ifndef __TITLE_STATE_H__
+#define __TITLE_STATE_H__
 
 #include "State.h"
 
-class StateStack;
+#include <SFML/Graphics/Sprite.hpp>
+#include <SFML/Graphics/Text.hpp>
+
 
 class TitleState : public State
 {
@@ -12,7 +14,8 @@ public:
 
     virtual void draw();
     virtual bool update(sf::Time dt);
-    virtual bool handleEvent(const sf::Event &event);
+    virtual bool handleEvent(const sf::Event& event);
+
 
 private:
     sf::Sprite mBackgroundSprite;
@@ -22,4 +25,4 @@ private:
     sf::Time mTextEffectTime;
 };
 
-#endif // TITLESTATE_H
+#endif // __TITLE_STATE_H__
