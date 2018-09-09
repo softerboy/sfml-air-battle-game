@@ -86,6 +86,10 @@ void Aircraft::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) co
 
 void Aircraft::updateCurrent(sf::Time dt, CommandQueue& commands)
 {
+    // Update texts
+    updateTexts();
+    updateRollAnimation();
+
     // Entity has been destroyed: Possibly drop pickup, mark for removal
     if (isDestroyed())
     {
@@ -100,9 +104,6 @@ void Aircraft::updateCurrent(sf::Time dt, CommandQueue& commands)
     // Update enemy movement pattern; apply velocity
     updateMovementPattern(dt);
     Entity::updateCurrent(dt, commands);
-
-    // Update texts
-    updateTexts();
 }
 
 unsigned int Aircraft::getCategory() const
@@ -285,5 +286,20 @@ void Aircraft::updateTexts()
             mMissileDisplay->setString("");
         else
             mMissileDisplay->setString("M: " + toString(mMissileAmmo));
+    }
+}
+
+void Aircraft::updateRollAnimation()
+{
+    if (Table[mType].hasRollAnimation) {
+        auto textureRect = Table[mType].textureRect;
+
+        // Roll left: Texture rect offset once
+        if (getVelocity().x < 0.f)
+            textureRect.left += textureRect.width;
+        else if (getVelocity().x > 0.f)
+            textureRect.left += 2 * textureRect.width;
+
+        mSprite.setTextureRect(textureRect);
     }
 }

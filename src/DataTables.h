@@ -33,6 +33,7 @@ struct AircraftData
     sf::IntRect textureRect;
     sf::Time fireInterval;
     std::vector<Direction> directions;
+    bool hasRollAnimation;
 };
 
 struct ProjectileData

@@ -52,7 +52,7 @@ private:
     void createPickup(SceneNode& node, const TextureHolder& textures) const;
 
     void updateTexts();
-
+    void updateRollAnimation();
 
 private:
     Type mType;
