@@ -52,6 +52,7 @@ endif()
 
 set(SRCS
     src/MusicPlayer.cpp
+    src/SoundPlayer.cpp
     src/Animation.cpp
     src/Main.cpp
     src/Application.cpp
@@ -87,6 +88,7 @@ set(SRCS
 
 set(HDRS
     src/MusicPlayer.h
+    src/SoundPlayer.h
     src/Application.h
     src/Animation.h
     src/Aircraft.h

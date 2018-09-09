@@ -2,8 +2,9 @@
 #define __BUTTON_H__
 
 #include "Component.h"
-#include "ResourceIdentifiers.h"
 #include "ResourceHolder.h"
+#include "ResourceIdentifiers.h"
+#include "State.h"
 
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Text.hpp>
@@ -13,6 +14,7 @@
 #include <memory>
 #include <functional>
 
+class SoundPlayer;
 
 namespace GUI
 {
@@ -31,7 +33,7 @@ public:
     };
 
 public:
-    Button(const FontHolder& fonts, const TextureHolder& textures);
+    Button(State::Context context);
 
     void setCallback(Callback callback);
     void setText(const std::string& text);
@@ -56,6 +58,7 @@ private:
     sf::Sprite mSprite;
     sf::Text mText;
     bool mIsToggle;
+    SoundPlayer& mSounds;
 };
 
 }

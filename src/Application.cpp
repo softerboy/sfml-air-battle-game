@@ -9,7 +9,6 @@
 #include "SettingsState.h"
 #include "GameOverState.h"
 
-
 const sf::Time Application::TimePerFrame = sf::seconds(1.f/60.f);
 
 Application::Application()
@@ -18,7 +17,8 @@ Application::Application()
     , mFonts()
     , mPlayer()
     , mMusic()
-    , mStateStack(State::Context(mWindow, mTextures, mFonts, mPlayer, mMusic))
+    , mSounds()
+    , mStateStack(State::Context(mWindow, mTextures, mFonts, mPlayer, mMusic, mSounds))
     , mStatisticsText()
     , mStatisticsUpdateTime()
     , mStatisticsNumFrames(0)
