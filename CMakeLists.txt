@@ -8,7 +8,7 @@ endif()
 # For generators with multiple configurations (like VS), only allow Debug and Release
 if(CMAKE_CONFIGURATION_TYPES)
         set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "Limited configurations" FORCE)
-        mark_as_advanced(CMAKE_CONFIGURATION_TYPES)
+	mark_as_advanced(CMAKE_CONFIGURATION_TYPES)
 endif()
 
 # Project name
@@ -28,10 +28,10 @@ if(CMAKE_COMPILER_IS_GNUCXX)
 elseif(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
 
-        # Mac OS X: clang uses libc++ standard library
-        if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
-                set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
-        endif()
+	# Mac OS X: clang uses libc++ standard library
+	if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+	        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
+	endif()
 endif()
 
 # Add directory containing FindSFML.cmake to module path
@@ -46,11 +46,12 @@ if(SFML_FOUND)
         include_directories(${SFML_INCLUDE_DIR})
 else()
         set(SFML_ROOT "" CACHE PATH "SFML top-level directory")
-        message("\n-> SFML directory not found. Set SFML_ROOT to SFML's top-level path (containing \"include\" and \"lib\" directories).")
-        message("-> Make sure the SFML libraries with the same configuration (Release/Debug, Static/Dynamic) exist.\n")
+	message("\n-> SFML directory not found. Set SFML_ROOT to SFML's top-level path (containing \"include\" and \"lib\" directories).")
+	message("-> Make sure the SFML libraries with the same configuration (Release/Debug, Static/Dynamic) exist.\n")
 endif()
 
 set(SRCS
+    src/Animation.cpp
     src/Main.cpp
     src/Application.cpp
     src/Aircraft.cpp
@@ -77,10 +78,13 @@ set(SRCS
     src/DataTables.cpp
     src/TextNode.cpp
     src/Projectile.cpp
-    src/Pickup.cpp)
+    src/Pickup.cpp
+    src/ParticleNode.cpp
+    src/EmitterNode.cpp)
 
 set(HDRS
     src/Application.h
+    src/Animation.h
     src/Aircraft.h
     src/ResourceHolder.h
     src/Category.h
@@ -98,7 +102,7 @@ set(HDRS
     src/TitleState.h
     src/MenuState.h
     src/GameState.h
-    src/PauseState.h        
+    src/PauseState.h
     src/SettingsState.h
     src/GameOverState.h
     src/Utility.h
@@ -109,7 +113,10 @@ set(HDRS
     src/DataTables.h
     src/TextNode.h
     src/Projectile.h
-    src/Pickup.h)
+    src/Pickup.h
+    src/Particle.h
+    src/ParticleNode.h
+    src/EmitterNode.h)
 
 add_executable(${PROJECT_NAME} ${SRCS} ${HDRS})
 target_link_libraries(${PROJECT_NAME} ${SFML_LIBRARIES})

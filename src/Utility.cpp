@@ -171,3 +171,9 @@ sf::Vector2f unitVector(sf::Vector2f vector)
     assert(vector != sf::Vector2f(0.f, 0.f));
     return vector / length(vector);
 }
+
+void centerOrigin(Animation &animation)
+{
+    auto bounds = animation.getLocalBounds();
+    animation.setOrigin(std::floor(bounds.width / 2.f), std::floor(bounds.height / 2.f));
+}

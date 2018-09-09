@@ -2,6 +2,7 @@
 #include "Aircraft.h"
 #include "Projectile.h"
 #include "Pickup.h"
+#include "Particle.h"
 
 
 // For std::bind() placeholders _1, _2, ...
@@ -80,6 +81,13 @@ std::vector<PickupData> initializePickupData()
     data[Pickup::FireRate].texture = Textures::Entities;
     data[Pickup::FireRate].action = std::bind(&Aircraft::increaseFireRate, _1);
     data[Pickup::FireRate].textureRect = sf::IntRect(120, 64, 40, 40);
+
+    return data;
+}
+
+std::vector<ParticleData> initializeParticleData()
+{
+    std::vector<ParticleData> data(Particle::ParticleCount);
 
     return data;
 }

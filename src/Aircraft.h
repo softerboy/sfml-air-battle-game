@@ -6,6 +6,7 @@
 #include "ResourceIdentifiers.h"
 #include "Projectile.h"
 #include "TextNode.h"
+#include "Animation.h"
 
 #include <SFML/Graphics/Sprite.hpp>
 
@@ -56,12 +57,14 @@ private:
 private:
     Type mType;
     sf::Sprite mSprite;
+    Animation mExplosion;
     Command	mFireCommand;
     Command	mMissileCommand;
     sf::Time mFireCountdown;
     bool mIsFiring;
     bool mIsLaunchingMissile;
-    bool mIsMarkedForRemoval;
+    bool mShowExplosion;
+    bool mSpawnedPickup;
 
     int	mFireRateLevel;
     int	mSpreadLevel;

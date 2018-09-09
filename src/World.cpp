@@ -2,6 +2,7 @@
 #include "Projectile.h"
 #include "Pickup.h"
 #include "TextNode.h"
+#include "ParticleNode.h"
 
 #include <SFML/Graphics/RenderWindow.hpp>
 
@@ -83,6 +84,9 @@ void World::loadTextures()
 {
     mTextures.load(Textures::Entities, "media/texture/Entities.png");
     mTextures.load(Textures::Jungle, "media/texture/Jungle.png");
+    mTextures.load(Textures::Explosion, "media/texture/Explosion.png");
+    mTextures.load(Textures::Particle, "media/texture/Particle.png");
+    mTextures.load(Textures::FinishLine, "media/texture/FinishLine.png");
 }
 
 void World::adaptPlayerPosition()
@@ -177,7 +181,7 @@ void World::buildScene()
     // Initialize the different layers
     for (std::size_t i = 0; i < LayerCount; ++i)
     {
-        Category::Type category = (i == Air) ? Category::SceneAirLayer : Category::None;
+        Category::Type category = (i == LowerAir) ? Category::SceneAirLayer : Category::None;
 
         SceneNode::Ptr layer(new SceneNode(category));
         mSceneLayers[i] = layer.get();
@@ -195,11 +199,26 @@ void World::buildScene()
     backgroundSprite->setPosition(mWorldBounds.left, mWorldBounds.top);
     mSceneLayers[Background]->attachChild(std::move(backgroundSprite));
 
+
+    // Add the finish line to the scene
+    sf::Texture& finishTexture = mTextures.get(Textures::FinishLine);
+    std::unique_ptr<SpriteNode> finishSprite(new SpriteNode(finishTexture));
+    finishSprite->setPosition(0.f, -76.f);
+    mSceneLayers[Background]->attachChild(std::move(finishSprite));
+
+    // Add particle node to the scene
+    std::unique_ptr<ParticleNode> smokeNode(new ParticleNode(Particle::Smoke, mTextures));
+    mSceneLayers[LowerAir]->attachChild(std::move(smokeNode));
+
+    // Add propellant particle node to the scene
+    std::unique_ptr<ParticleNode> propellantNode(new ParticleNode(Particle::Propellant, mTextures));
+    mSceneLayers[LowerAir]->attachChild(std::move(propellantNode));
+
     // Add player's aircraft
     std::unique_ptr<Aircraft> player(new Aircraft(Aircraft::Eagle, mTextures, mFonts));
     mPlayerAircraft = player.get();
     mPlayerAircraft->setPosition(mSpawnPosition);
-    mSceneLayers[Air]->attachChild(std::move(player));
+    mSceneLayers[UpperAir]->attachChild(std::move(player));
 
     // Add enemy aircraft
     addEnemies();
@@ -242,7 +261,7 @@ void World::spawnEnemies()
         enemy->setPosition(spawn.x, spawn.y);
         enemy->setRotation(180.f);
 
-        mSceneLayers[Air]->attachChild(std::move(enemy));
+        mSceneLayers[UpperAir]->attachChild(std::move(enemy));
 
         // Enemy is spawned, remove from the list to spawn
         mEnemySpawnPoints.pop_back();
