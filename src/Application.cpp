@@ -36,6 +36,8 @@ Application::Application()
 
     registerStates();
     mStateStack.pushState(States::Title);
+
+    mMusic.setVolume(25.f);
 }
 
 void Application::run()

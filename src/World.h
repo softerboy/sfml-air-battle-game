@@ -26,10 +26,12 @@ namespace sf
 class RenderTarget;
 }
 
+class SoundPlayer;
+
 class World : private sf::NonCopyable
 {
 public:
-    explicit World(sf::RenderTarget& window, FontHolder& fonts);
+    explicit World(sf::RenderTarget& window, FontHolder& fonts, SoundPlayer &sounds);
     void update(sf::Time dt);
     void draw();
 
@@ -44,6 +46,7 @@ private:
     void adaptPlayerPosition();
     void adaptPlayerVelocity();
     void handleCollisions();
+    void updateSounds();
 
     void buildScene();
     void addEnemies();
@@ -85,6 +88,7 @@ private:
     sf::View mWorldView;
     TextureHolder mTextures;
     FontHolder&	mFonts;
+    SoundPlayer& mSounds;
 
     SceneNode mSceneGraph;
     std::array<SceneNode*, LayerCount> mSceneLayers;

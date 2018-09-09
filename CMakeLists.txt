@@ -58,6 +58,7 @@ set(SRCS
     src/Application.cpp
     src/Aircraft.cpp
     src/SceneNode.cpp
+    src/SoundNode.cpp
     src/Entity.cpp
     src/SpriteNode.cpp
     src/Command.cpp
@@ -99,6 +100,7 @@ set(HDRS
     src/ResourceIdentifiers.h
     src/StateIdentifiers.h
     src/SpriteNode.h
+    src/SoundNode.h
     src/Command.h
     src/World.h
     src/CommandQueue.h

@@ -4,6 +4,8 @@
 #include "TextNode.h"
 #include "ParticleNode.h"
 #include "PostEffect.h"
+#include "SoundPlayer.h"
+#include "SoundNode.h"
 
 #include <SFML/Graphics/RenderTarget.hpp>
 
@@ -12,11 +14,12 @@
 #include <limits>
 
 
-World::World(sf::RenderTarget& outputTarget, FontHolder& fonts)
+World::World(sf::RenderTarget& outputTarget, FontHolder& fonts, SoundPlayer& sounds)
     : mTarget(outputTarget)
     , mWorldView(outputTarget.getDefaultView())
     , mTextures()
     , mFonts(fonts)
+    , mSounds(sounds)
     , mSceneGraph()
     , mSceneLayers()
     , mWorldBounds(0.f, 0.f, mWorldView.getSize().x, 2000.f)
@@ -60,6 +63,8 @@ void World::update(sf::Time dt)
     // Regular update step, adapt position (correct if outside view)
     mSceneGraph.update(dt, mCommandQueue);
     adaptPlayerPosition();
+
+    updateSounds();
 }
 
 void World::draw()
@@ -172,6 +177,7 @@ void World::handleCollisions()
             // Apply pickup effect to player, destroy projectile
             pickup.apply(player);
             pickup.destroy();
+            player.playLocalSound(mCommandQueue, SoundEffect::CollectPickup);
         }
 
         else if (matchesCategories(pair, Category::EnemyAircraft, Category::AlliedProjectile)
@@ -185,6 +191,12 @@ void World::handleCollisions()
             projectile.destroy();
         }
     }
+}
+
+void World::updateSounds()
+{
+    mSounds.setListenerPosition(mPlayerAircraft->getWorldPosition());
+    mSounds.removeStoppedSounds();
 }
 
 void World::buildScene()
@@ -210,7 +222,6 @@ void World::buildScene()
     backgroundSprite->setPosition(mWorldBounds.left, mWorldBounds.top);
     mSceneLayers[Background]->attachChild(std::move(backgroundSprite));
 
-
     // Add the finish line to the scene
     sf::Texture& finishTexture = mTextures.get(Textures::FinishLine);
     std::unique_ptr<SpriteNode> finishSprite(new SpriteNode(finishTexture));
@@ -224,6 +235,10 @@ void World::buildScene()
     // Add propellant particle node to the scene
     std::unique_ptr<ParticleNode> propellantNode(new ParticleNode(Particle::Propellant, mTextures));
     mSceneLayers[LowerAir]->attachChild(std::move(propellantNode));
+
+    // Add sound effect node
+    std::unique_ptr<SoundNode> soundNode(new SoundNode(mSounds));
+    mSceneGraph.attachChild(std::move(soundNode));
 
     // Add player's aircraft
     std::unique_ptr<Aircraft> player(new Aircraft(Aircraft::Eagle, mTextures, mFonts));

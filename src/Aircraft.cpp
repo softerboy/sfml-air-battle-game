@@ -4,12 +4,14 @@
 #include "Pickup.h"
 #include "CommandQueue.h"
 #include "ResourceHolder.h"
+#include "SoundNode.h"
 
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/RenderStates.hpp>
 
 #include <cmath>
 
+using namespace std::placeholders;
 
 namespace
 {
@@ -28,6 +30,7 @@ Aircraft::Aircraft(Type type, const TextureHolder& textures, const FontHolder& f
     , mIsLaunchingMissile(false)
     , mShowExplosion(true)
     , mSpawnedPickup(false)
+    , mPlayedExplosionSound(false)
     , mFireRateLevel(1)
     , mSpreadLevel(1)
     , mMissileAmmo(2)
@@ -95,6 +98,14 @@ void Aircraft::updateCurrent(sf::Time dt, CommandQueue& commands)
     {
         checkPickupDrop(commands);
         mExplosion.update(dt);
+
+        // Play explosion sound only once
+        if (!mPlayedExplosionSound) {
+            auto soundEffect = (randomInt(2) == 0) ? SoundEffect::Explosion1 : SoundEffect::Explosion2;
+            playLocalSound(commands, soundEffect);
+
+            mPlayedExplosionSound = true;
+        }
         return;
     }
 
@@ -199,6 +210,14 @@ void Aircraft::checkPickupDrop(CommandQueue& commands)
     mSpawnedPickup = true;
 }
 
+void Aircraft::playLocalSound(CommandQueue &commands, SoundEffect::ID effect)
+{
+    Command command;
+    command.category = Category::SoundEffect;
+    command.action = derivedAction<SoundNode>(std::bind(&SoundNode::playSound, _1, effect, getWorldPosition()));
+    commands.push(command);
+}
+
 void Aircraft::checkProjectileLaunch(sf::Time dt, CommandQueue& commands)
 {
     // Enemies try to fire all the time
@@ -208,6 +227,7 @@ void Aircraft::checkProjectileLaunch(sf::Time dt, CommandQueue& commands)
     // Check for automatic gunfire, allow only in intervals
     if (mIsFiring && mFireCountdown <= sf::Time::Zero)
     {
+        playLocalSound(commands, isAllied() ? SoundEffect::AlliedGunfire : SoundEffect::EnemyGunfire);
         // Interval expired: We can fire a new bullet
         commands.push(mFireCommand);
         mFireCountdown += Table[mType].fireInterval / (mFireRateLevel + 1.f);
@@ -223,6 +243,7 @@ void Aircraft::checkProjectileLaunch(sf::Time dt, CommandQueue& commands)
     // Check for missile launch
     if (mIsLaunchingMissile)
     {
+        playLocalSound(commands, SoundEffect::LaunchMissile);
         commands.push(mMissileCommand);
         mIsLaunchingMissile = false;
     }
