@@ -39,7 +39,7 @@ set (CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/CMake/;${CMAKE_MODULE_PATH}")
 
 # Find SFML
 # Note: SFML_STATIC_LIBRARIES determines which libraries are found by find_package()
-find_package(SFML 2 COMPONENTS graphics window system)
+find_package(SFML 2 COMPONENTS graphics window system audio)
 
 # If found, include and link; otherwise output error message
 if(SFML_FOUND)
@@ -51,6 +51,7 @@ else()
 endif()
 
 set(SRCS
+    src/MusicPlayer.cpp
     src/Animation.cpp
     src/Main.cpp
     src/Application.cpp
@@ -85,6 +86,7 @@ set(SRCS
     src/EmitterNode.cpp)
 
 set(HDRS
+    src/MusicPlayer.h
     src/Application.h
     src/Animation.h
     src/Aircraft.h
