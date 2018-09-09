@@ -24,12 +24,10 @@ Application::Application()
 {
     mWindow.setKeyRepeatEnabled(false);
 
-    mFonts.load(Fonts::Main, 	"media/font/Sansation.ttf");
+    mFonts.load(Fonts::Main, "media/font/Sansation.ttf");
 
-    mTextures.load(Textures::TitleScreen,		"media/texture/TitleScreen.png");
-    mTextures.load(Textures::ButtonNormal,		"media/texture/ButtonNormal.png");
-    mTextures.load(Textures::ButtonSelected,	"media/texture/ButtonSelected.png");
-    mTextures.load(Textures::ButtonPressed,		"media/texture/ButtonPressed.png");
+    mTextures.load(Textures::TitleScreen, "media/texture/TitleScreen.png");
+    mTextures.load(Textures::Buttons, "media/texture/Buttons.png");
 
     mStatisticsText.setFont(mFonts.get(Fonts::Main));
     mStatisticsText.setPosition(5.f, 5.f);

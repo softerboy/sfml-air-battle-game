@@ -12,9 +12,9 @@
 
 World::World(sf::RenderWindow& window, FontHolder& fonts)
     : mWindow(window)
-    , mFonts(fonts)
     , mWorldView(window.getDefaultView())
     , mTextures()
+    , mFonts(fonts)
     , mSceneGraph()
     , mSceneLayers()
     , mWorldBounds(0.f, 0.f, mWorldView.getSize().x, 2000.f)
@@ -81,18 +81,8 @@ bool World::hasPlayerReachedEnd() const
 
 void World::loadTextures()
 {
-    mTextures.load(Textures::Eagle, "media/texture/Eagle.png");
-    mTextures.load(Textures::Raptor, "media/texture/Raptor.png");
-    mTextures.load(Textures::Avenger, "media/texture/Avenger.png");
-    mTextures.load(Textures::Desert, "media/texture/Desert.png");
-
-    mTextures.load(Textures::Bullet, "media/texture/Bullet.png");
-    mTextures.load(Textures::Missile, "media/texture/Missile.png");
-
-    mTextures.load(Textures::HealthRefill, "media/texture/HealthRefill.png");
-    mTextures.load(Textures::MissileRefill, "media/texture/MissileRefill.png");
-    mTextures.load(Textures::FireSpread, "media/texture/FireSpread.png");
-    mTextures.load(Textures::FireRate, "media/texture/FireRate.png");
+    mTextures.load(Textures::Entities, "media/texture/Entities.png");
+    mTextures.load(Textures::Jungle, "media/texture/Jungle.png");
 }
 
 void World::adaptPlayerPosition()
@@ -196,7 +186,7 @@ void World::buildScene()
     }
 
     // Prepare the tiled background
-    sf::Texture& texture = mTextures.get(Textures::Desert);
+    sf::Texture& texture = mTextures.get(Textures::Jungle);
     sf::IntRect textureRect(mWorldBounds);
     texture.setRepeated(true);
 
