@@ -8,10 +8,13 @@
 #include "Aircraft.h"
 #include "CommandQueue.h"
 #include "Command.h"
+#include "BloomEffect.h"
 
 #include <SFML/System/NonCopyable.hpp>
 #include <SFML/Graphics/View.hpp>
 #include <SFML/Graphics/Texture.hpp>
+#include <SFML/Graphics/RenderTexture.hpp>
+#include <SFML/Graphics/Shader.hpp>
 
 #include <array>
 #include <queue>
@@ -20,13 +23,13 @@
 // Forward declaration
 namespace sf
 {
-class RenderWindow;
+class RenderTarget;
 }
 
 class World : private sf::NonCopyable
 {
 public:
-    explicit World(sf::RenderWindow& window, FontHolder& fonts);
+    explicit World(sf::RenderTarget& window, FontHolder& fonts);
     void update(sf::Time dt);
     void draw();
 
@@ -77,7 +80,8 @@ private:
 
 
 private:
-    sf::RenderWindow& mWindow;
+    sf::RenderTarget& mTarget;
+    sf::RenderTexture mSceneTexture;
     sf::View mWorldView;
     TextureHolder mTextures;
     FontHolder&	mFonts;
@@ -93,6 +97,8 @@ private:
 
     std::vector<SpawnPoint>	mEnemySpawnPoints;
     std::vector<Aircraft*> mActiveEnemies;
+
+    BloomEffect mBloomEffect;
 };
 
 #endif // __WORLD_H__

@@ -80,6 +80,8 @@ set(SRCS
     src/Projectile.cpp
     src/Pickup.cpp
     src/ParticleNode.cpp
+    src/PostEffect.cpp
+    src/BloomEffect.cpp
     src/EmitterNode.cpp)
 
 set(HDRS
@@ -116,6 +118,8 @@ set(HDRS
     src/Pickup.h
     src/Particle.h
     src/ParticleNode.h
+    src/PostEffect.h
+    src/BloomEffect.h
     src/EmitterNode.h)
 
 add_executable(${PROJECT_NAME} ${SRCS} ${HDRS})
