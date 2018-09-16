@@ -1,5 +1,7 @@
 # Air battle game using [SFML](https://www.sfml-dev.org)
 
+![screenshot](https://github.com/softerboy/sfml-air-battle-game/blob/master/media/screenshots/game_2.png)
+
 I. Install CMake
 ================
 Install CMake, preferably CMake-GUI (www.cmake.org or the cmake-gui package in Linux).
